@@ -31,10 +31,10 @@ public class MovieCatalogController {
 
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
-        UserRating userRating = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/"+userId, UserRating.class);
+        UserRating userRating = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/"+userId, UserRating.class);
          return userRating.getRatingList().stream().map(
                 rating -> {
-                    Movie movie = restTemplate.getForObject("http://localhost:8082/movies/"+rating.getMovieId(), Movie.class);
+                    Movie movie = restTemplate.getForObject("http://movie-info-service/movies/"+rating.getMovieId(), Movie.class);
                     return new CatalogItem(movie.getName(),"Desc",rating.getRating());
                 })
                 .collect(Collectors.toList());
