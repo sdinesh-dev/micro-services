@@ -4,7 +4,9 @@ import com.dinesh.moviecatalogservice.models.CatalogItem;
 import com.dinesh.moviecatalogservice.models.Movie;
 import com.dinesh.moviecatalogservice.models.Rating;
 import com.dinesh.moviecatalogservice.models.UserRating;
-import org.apache.catalina.filters.AddDefaultCharsetFilter;
+import com.dinesh.moviecatalogservice.services.MovieService;
+import com.dinesh.moviecatalogservice.services.RatingService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
@@ -29,16 +31,23 @@ public class MovieCatalogController {
     @Autowired
     WebClient.Builder webClientBuilder;
 
+    @Autowired
+    MovieService movieService;
+
+    @Autowired
+    RatingService ratingService;
+
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
-        UserRating userRating = restTemplate.getForObject("http://rating-data-service/ratingsdata/users/"+userId, UserRating.class);
+        UserRating userRating = ratingService.getUserRating(userId);
          return userRating.getRatingList().stream().map(
                 rating -> {
-                    Movie movie = restTemplate.getForObject("http://movie-info-service/movies/"+rating.getMovieId(), Movie.class);
+                    Movie movie = movieService.getMovie(rating);
                     return new CatalogItem(movie.getName(),movie.getDescription(),rating.getRating());
                 })
                 .collect(Collectors.toList());
     }
+
 @RequestMapping("webclient/{userId}")
     public List<CatalogItem> getCatalogUsingWebClient(@PathVariable("userId") String userId){
         List<Rating> ratingList = Arrays.asList(
