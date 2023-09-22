@@ -17,3 +17,6 @@ db:
   port: 8080
 
 management.endpoints.web.exposure.include: "*"
+
+#Spring Profile Config
+#spring.profiles.active: test
