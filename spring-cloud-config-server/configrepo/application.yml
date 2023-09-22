@@ -1,0 +1,10 @@
+my:
+  greeting: Hello Magizhini.D.K
+list:
+  of:
+    numbers: One,Two,Three,Four,Five,Six
+
+dbValues: "{connectionString:'spring-config', username:'server', password:'server'}"
+app:
+   name: Magizhini App
+   description: Welcome to ${app.name}
