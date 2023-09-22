@@ -2,7 +2,7 @@ my:
   greeting: Hello Magizhini.D.K
 list:
   of:
-    numbers: One,Two,Three,Four,Five,Six
+    numbers: One,Two,Three,Four,Five,Six,Seven
 
 dbValues: "{connectionString:'spring-config', username:'server', password:'server'}"
 app:
