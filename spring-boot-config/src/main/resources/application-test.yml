@@ -1,0 +1,7 @@
+server:
+  port: 8085
+my:
+  greeting: Hello Magizhini
+list:
+  of:
+    numbers: One,Two,Three,Four,Five
