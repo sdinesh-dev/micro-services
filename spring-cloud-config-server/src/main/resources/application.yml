@@ -6,4 +6,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/sdinesh-dev/micro-services/tree/main/spring-cloud-config-server/configrepo
+          uri: ${HOME}/code/configrepo
+          default-label: main
