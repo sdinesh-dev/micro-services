@@ -1,4 +1,9 @@
 server:
   port: 8888
 
-spring.cloud.config.server.git.uri: ${HOME}/Downloads/workspace/spring-cloud-config-server/configrepo
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/sdinesh-dev/micro-services/tree/main/spring-cloud-config-server/configrepo
